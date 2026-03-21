@@ -85,14 +85,7 @@ The colour palette was eyedropped from [hdruk.ac.uk](https://www.hdruk.ac.uk) an
 
 ## AI tool usage
 
-I used Claude (Anthropic) as a pair programming partner throughout this project. Specifically:
-
-- **Planning and architecture:** Claude helped me evaluate trade-offs (styled-components vs CSS modules, runtime API vs static data, monorepo structure) and challenged my assumptions.
-- **Code review:** Claude reviewed my implementations and flagged issues (null handling edge cases, build failure modes, TypeScript type coverage).
-- **Documentation:** Claude helped draft this README and the technical decision documentation in my engineering vault.
-- **Foundations audit:** Claude helped me audit reusable patterns from my portfolio site and document them for cross-project reuse.
-
-**All implementation code was written by me.** Claude was used as a thinking partner and reviewer, not as a code generator. This mirrors how I would work with a senior engineer or in a design review: I make the decisions, write the code, and use the conversation to pressure-test my reasoning.
+Claude (Anthropic) was used for planning, review, and limited boilerplate assistance such as scaffolding and type shapes. Core application logic and final implementation decisions were made by me, and I reviewed and edited any AI-assisted output before including it.
 
 ---
 
