@@ -5,14 +5,14 @@
 
 :root {
   /* Colours */
-  --teal: hsl(146, 22%, 57%);
-  --teal-light: hsl(146, 22%, 92%);
-  --teal-dark: hsl(146, 22%, 38%);
-  --blue: hsl(234, 31%, 48%);
-  --blue-light: hsl(234, 31%, 94%);
-  --blue-dark: hsl(234, 31%, 32%);
-  --orange: hsl(24, 67%, 41%);
-  --orange-light: hsl(24, 67%, 92%);
+  --teal: hsl(146, 35%, 50%);
+  --teal-light: hsl(146, 35%, 90%);
+  --teal-dark: hsl(146, 40%, 30%);
+  --blue: hsl(234, 35%, 45%);
+  --blue-light: hsl(234, 30%, 92%);
+  --blue-dark: hsl(234, 40%, 28%);
+  --orange: hsl(24, 75%, 45%);
+  --orange-light: hsl(24, 60%, 92%);
   --bg: hsl(210, 20%, 98%);
   --surface: hsl(0, 0%, 100%);
   --text: hsl(220, 15%, 15%);
