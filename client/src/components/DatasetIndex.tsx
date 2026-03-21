@@ -8,8 +8,8 @@ interface DatasetIndexProps {
 function DatasetIndex({ datasets }: DatasetIndexProps) {
   return (
     <div className={styles.datasetIndex}>
-      {datasets.map((dataset) => (
-        <div key={dataset.id} className={styles.datasetCard}>
+      {datasets.map((dataset, index) => (
+        <div key={index} className={styles.datasetCard}>
           <h2>{dataset.title}</h2>
           <p className={styles.description}>{dataset.description}</p>
           <div className={styles.meta}>
