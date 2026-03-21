@@ -5,7 +5,7 @@ interface RawDataset {
   metadata: {
     summary: {
       title: string;
-      description: string;
+      description: string | null;
     };
     accessibility: {
       access: {

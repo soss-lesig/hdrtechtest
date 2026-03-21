@@ -7,12 +7,12 @@ function mapDataset(raw: RawDataset): MappedDataset {
   return {
     id: raw.id,
     title: raw.metadata.summary.title,
-    description: raw.metadata.summary.description,
+    description: raw.metadata.summary.description ?? "No description provided",
     accessServiceCategory:
       raw.metadata.accessibility.access.accessServiceCategory ??
-      "Not Specified",
+      "Not specified",
     accessRights:
-      raw.metadata.accessibility.access.accessRights ?? "Not Available",
+      raw.metadata.accessibility.access.accessRights ?? "Not available",
   };
 }
 
