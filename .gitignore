@@ -17,3 +17,6 @@ client/public/data/datasets.json
 
 # OS
 .DS_Store
+
+# raw dataset
+/all_datasets.json
