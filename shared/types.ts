@@ -1,18 +1,27 @@
 // Shared types for the HDR UK dataset metadata
 // Used by both the Express server and the React client
+interface RawDataset {
+  id: number;
+  metadata: {
+    summary: {
+      title: string;
+      description: string;
+    };
+    accessibility: {
+      access: {
+        accessServiceCategory: string | null;
+        accessRights: string | null;
+      };
+    };
+  };
+}
 
-// TODO: Define RawDataset type
-// Only type the paths actually traversed:
-// - id (number)
-// - metadata.summary.title
-// - metadata.summary.description
-// - metadata.accessibility.access.accessServiceCategory
-// - metadata.accessibility.access.accessRights
+interface MappedDataset {
+  id: number;
+  title: string;
+  description: string;
+  accessServiceCategory: string;
+  accessRights: string;
+}
 
-// TODO: Define MappedDataset type
-// Flat shape the UI consumes:
-// - id: number
-// - title: string
-// - description: string
-// - accessServiceCategory: string
-// - accessRights: string
+export type { RawDataset, MappedDataset };
