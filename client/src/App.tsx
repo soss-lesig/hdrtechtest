@@ -1,4 +1,5 @@
 import { useDatasets } from "./hooks/useDatasets";
+import DatasetIndex from "./components/DatasetIndex";
 
 function App() {
   const { datasets, loading, error } = useDatasets();
@@ -14,22 +15,7 @@ function App() {
   return (
     <div className="app">
       <h1>HDR UK Dataset Explorer</h1>
-      <div>
-        {datasets.map((dataset) => (
-          <div key={dataset.id} className="dataset-card">
-            <h3>{dataset.title}</h3>
-            <p>{dataset.description}</p>
-            <p>{dataset.accessServiceCategory}</p>
-            <a
-              href={dataset.accessRights}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Access Rights
-            </a>
-          </div>
-        ))}
-      </div>
+      <DatasetIndex datasets={datasets} />
     </div>
   );
 }

@@ -1,0 +1,59 @@
+/* =========================================================================
+   DatasetIndex
+   Editorial list of dataset cards. Description clamped to 2 lines.
+   ========================================================================= */
+
+.datasetIndex {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.datasetCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+
+.datasetCard h2 {
+  font-size: var(--fs-h4);
+  margin: 0 0 var(--space-2);
+  color: var(--text);
+}
+
+.description {
+  color: var(--muted);
+  font-size: var(--fs-small);
+  margin: 0 0 var(--space-3);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-small);
+}
+
+.category {
+  color: var(--teal-dark);
+  background: var(--teal-light);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.accessLink {
+  color: var(--orange);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.accessLink:hover {
+  color: var(--teal-dark);
+}
