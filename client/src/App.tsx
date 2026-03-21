@@ -25,7 +25,7 @@ function App() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              View Dataset
+              View Access Rights
             </a>
           </div>
         ))}
