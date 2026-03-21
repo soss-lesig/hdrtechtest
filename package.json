@@ -2,6 +2,7 @@
   "name": "hdrtechtest",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "HDR UK Technical Test - Full stack dataset metadata viewer",
   "scripts": {
     "dev:client": "cd client && npm run dev",

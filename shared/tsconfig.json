@@ -6,7 +6,9 @@
     "strict": true,
     "declaration": true,
     "outDir": "./dist",
-    "rootDir": "."
+    "rootDir": ".",
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": ["./**/*"]
 }
