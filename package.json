@@ -1,0 +1,21 @@
+{
+  "name": "hdrtechtest",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HDR UK Technical Test - Full stack dataset metadata viewer",
+  "scripts": {
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "dev": "npm run dev:server & npm run dev:client",
+    "build:data": "cd server && npm run build:data",
+    "build:client": "cd client && npm run build",
+    "build": "npm run build:data && npm run build:client",
+    "preview": "cd client && npm run preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soss-lesig/hdrtechtest.git"
+  },
+  "author": "Andrew Pendlebury",
+  "license": "ISC"
+}
