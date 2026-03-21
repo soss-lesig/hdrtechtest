@@ -5,6 +5,22 @@ interface DatasetIndexProps {
   datasets: MappedDataset[];
 }
 
+//object map that returns css clases based on the accessServiceCategory value
+const getCategoryClass = (category: string) => {
+  switch (category) {
+    case "Open access":
+      return styles.openAccess;
+    case "Direct access":
+      return styles.directAccess;
+    case "TRE/SDE":
+      return styles.treSde;
+    case "Varies based on project":
+      return styles.varies;
+    default:
+      return styles.notSpecified;
+  }
+};
+
 function DatasetIndex({ datasets }: DatasetIndexProps) {
   return (
     <div className={styles.datasetIndex}>
@@ -14,7 +30,7 @@ function DatasetIndex({ datasets }: DatasetIndexProps) {
           <p className={styles.description}>{dataset.description}</p>
           <div className={styles.meta}>
             <span className={styles.categoryLabel}>Access:</span>
-            <span className={styles.category}>
+            <span className={getCategoryClass(dataset.accessServiceCategory)}>
               {dataset.accessServiceCategory}
             </span>
             <a

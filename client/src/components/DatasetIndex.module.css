@@ -39,17 +39,54 @@
   font-size: var(--fs-small);
 }
 
-.category {
-  color: var(--teal-dark);
-  background: var(--teal-light);
-  padding: var(--space-1) var(--space-3);
-  border-radius: 12px;
-  font-weight: 500;
-}
-
 .categoryLabel {
   color: var(--muted);
 }
+
+/* =========================================================================
+   Category Pills
+   Shared pill shape, colour varies by access service category.
+   ========================================================================= */
+
+.openAccess,
+.directAccess,
+.treSde,
+.varies,
+.notSpecified {
+  padding: var(--space-1) var(--space-3);
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: var(--fs-small);
+}
+
+.openAccess {
+  color: var(--green);
+  background: var(--green-light);
+}
+
+.directAccess {
+  color: var(--teal-dark);
+  background: var(--teal-light);
+}
+
+.treSde {
+  color: var(--blue-dark);
+  background: var(--blue-light);
+}
+
+.varies {
+  color: var(--orange);
+  background: var(--orange-light);
+}
+
+.notSpecified {
+  color: var(--muted);
+  background: var(--bg);
+}
+
+/* =========================================================================
+   Access Rights Link
+   ========================================================================= */
 
 .accessLink {
   color: var(--orange);
