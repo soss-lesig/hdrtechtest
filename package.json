@@ -5,12 +5,13 @@
   "type": "module",
   "description": "HDR UK Technical Test - Full stack dataset metadata viewer",
   "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
     "dev": "npm run dev:server & npm run dev:client",
     "build:data": "cd server && npm run build:data",
     "build:client": "cd client && npm run build",
-    "build": "npm run build:data && npm run build:client",
+    "build": "npm run install:all && npm run build:data && npm run build:client",
     "preview": "cd client && npm run preview"
   },
   "repository": {
