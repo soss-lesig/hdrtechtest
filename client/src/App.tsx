@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useDatasets } from "./hooks/useDatasets";
 
 function App() {
-  const [datasets, setDatasets] = useState([]);
+  const { datasets, loading, error } = useDatasets();
 
-  useEffect(() => {
-    //fetch data from datasets.json and add it to the datasets state
-    fetch("/data/datasets.json")
-      .then((response) => response.json())
-      .then((data) => setDatasets(data))
-      .catch((error) => console.error("Error fetching datasets:", error));
-  }, []);
+  if (loading) {
+    return <div className="app">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="app">Error: {error}</div>;
+  }
 
   return (
     <div className="app">
