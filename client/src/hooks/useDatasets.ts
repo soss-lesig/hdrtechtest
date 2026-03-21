@@ -1,7 +1,8 @@
+import type { MappedDataset } from "@shared/types";
 import { useState, useEffect } from "react";
 
 export function useDatasets() {
-  const [datasets, setDatasets] = useState([]);
+  const [datasets, setDatasets] = useState<MappedDataset[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
