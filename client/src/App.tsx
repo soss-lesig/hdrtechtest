@@ -14,7 +14,22 @@ function App() {
   return (
     <div className="app">
       <h1>HDR UK Dataset Explorer</h1>
-      <pre>{JSON.stringify(datasets, null, 2)}</pre>
+      <div>
+        {datasets.map((dataset) => (
+          <div key={dataset.id} className="dataset-card">
+            <h3>{dataset.title}</h3>
+            <p>{dataset.description}</p>
+            <p>{dataset.accessServiceCategory}</p>
+            <a
+              href={dataset.accessRights}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Dataset
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
