@@ -13,6 +13,7 @@ function DatasetIndex({ datasets }: DatasetIndexProps) {
           <h2>{dataset.title}</h2>
           <p className={styles.description}>{dataset.description}</p>
           <div className={styles.meta}>
+            <span className={styles.categoryLabel}>Access:</span>
             <span className={styles.category}>
               {dataset.accessServiceCategory}
             </span>

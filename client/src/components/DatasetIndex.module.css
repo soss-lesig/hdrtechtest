@@ -47,6 +47,10 @@
   font-weight: 500;
 }
 
+.categoryLabel {
+  color: var(--muted);
+}
+
 .accessLink {
   color: var(--orange);
   font-weight: 500;
