@@ -1,11 +1,14 @@
 import type { MappedDataset } from "@shared/types";
 import styles from "./DatasetIndex.module.css";
+import Pagination from "./Pagination";
+
+import { useState, useMemo } from "react";
 
 interface DatasetIndexProps {
   datasets: MappedDataset[];
 }
 
-//object map that returns css clases based on the accessServiceCategory value
+//object map that returns css classes based on the accessServiceCategory value
 const getCategoryClass = (category: string) => {
   switch (category) {
     case "Open access":
@@ -22,9 +25,52 @@ const getCategoryClass = (category: string) => {
 };
 
 function DatasetIndex({ datasets }: DatasetIndexProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const pageSize = 10;
+
+  // filter datasets based on search term
+  const filtered = useMemo(() => {
+    return datasets.filter(
+      (dataset) =>
+        dataset.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        dataset.description.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  }, [datasets, searchTerm]);
+
+  // calculate total pages and paginated datasets
+  const totalPages = Math.ceil(filtered.length / pageSize);
+  const paginated = filtered.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize,
+  );
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
+
   return (
     <div className={styles.datasetIndex}>
-      {datasets.map((dataset, index) => (
+      <input
+        type="text"
+        placeholder="Search datasets by title or description..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className={styles.searchInput}
+      />
+
+      <p className={styles.resultCount}>
+        {filtered.length} dataset{filtered.length !== 1 ? "s" : ""} found
+      </p>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
+
+      {paginated.map((dataset, index) => (
         <div key={index} className={styles.datasetCard}>
           <h2>{dataset.title}</h2>
           <p className={styles.description}>{dataset.description}</p>
@@ -44,6 +90,12 @@ function DatasetIndex({ datasets }: DatasetIndexProps) {
           </div>
         </div>
       ))}
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 }

@@ -9,6 +9,40 @@
   gap: var(--space-5);
 }
 
+/* =========================================================================
+   Search
+   ========================================================================= */
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-body);
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color 0.2s ease;
+}
+
+.searchInput::placeholder {
+  color: var(--muted);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--teal);
+}
+
+.resultCount {
+  color: var(--muted);
+  font-size: var(--fs-small);
+  margin: 0;
+}
+
+/* =========================================================================
+   Dataset Cards
+   ========================================================================= */
+
 .datasetCard {
   background: var(--surface);
   border: 1px solid var(--border);
