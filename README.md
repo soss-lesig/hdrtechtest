@@ -1,36 +1,72 @@
 # HDR UK Dataset Explorer
 
-A web application that surfaces metadata from HDR UK's dataset catalogue, exposing title, description, access service category, and access rights for each dataset in a searchable, filterable interface.
+A web application that surfaces metadata from HDR UK's health dataset catalogue. Built as a technical test submission for the Junior Full Stack Software Engineer role.
 
-**Live:** [hdr-techtest.drewbs.dev](https://hdr-techtest.drewbs.dev)
+**Live:** hdr-techtest.drewbs.dev  
+**Author:** Andrew Pendlebury
 
 ---
 
-## Running locally
+## The Brief
+
+> Create a web application that exposes title, description, accessServiceCategory, and a link to accessRights for each dataset from the HDR UK dataset metadata JSON.
+
+---
+
+## Features
+
+Beyond the four required fields, the application includes:
+
+- **Search** - filters datasets by title or description in real time
+- **Pagination** - 10 datasets per page with first/previous/dropdown/next/last navigation
+- **Category colour coding** - access service categories displayed as colour-coded pills
+- **Responsive layout** - cards with clamped descriptions that work across screen sizes
+
+---
+
+## Running Locally
 
 ### Prerequisites
 
 - Node.js 20+
 - npm
 
-### Setup
+### Quick Start
 
 ```bash
 git clone https://github.com/soss-lesig/hdrtechtest.git
 cd hdrtechtest
+```
 
-# Install dependencies for all workspaces
+**Generate the dataset and start the client:**
+
+```bash
 cd server && npm install && cd ..
 cd client && npm install && cd ..
-
-# Generate the dataset file (fetches from GitHub, maps, writes static JSON)
 npm run build:data
-
-# Start the client dev server
 npm run dev:client
 ```
 
-The data generation step fetches the raw JSON from the HDRUK GitHub repository, maps each dataset through a shared transform function, and writes the output to `client/public/data/datasets.json`. The client then consumes this as a static file at runtime.
+The client dev server runs at `http://localhost:5173`.
+
+**To run the full stack (Express API + React client):**
+
+```bash
+npm run dev
+```
+
+This starts the Express server on `http://localhost:3001` and the Vite dev server on `http://localhost:5173` concurrently.
+
+### Available Scripts
+
+| Script | What it does |
+|--------|-------------|
+| `npm run dev` | Starts both the Express API server and the React dev server |
+| `npm run dev:client` | Starts only the React dev server (requires `build:data` first) |
+| `npm run dev:server` | Starts only the Express API server |
+| `npm run build:data` | Fetches the raw JSON from GitHub, maps it, writes static output to `client/public/data/` |
+| `npm run build` | Full production build: install deps, generate data, build client |
+| `npm run preview` | Preview the production build locally |
 
 ---
 
@@ -38,61 +74,88 @@ The data generation step fetches the raw JSON from the HDRUK GitHub repository, 
 
 ```
 hdrtechtest/
-  shared/        Shared TypeScript types and mapping function
-  server/        Build-time data generation script
-  client/        React frontend (Vite + TypeScript)
+├── shared/                  Types and mapping shared between server and client
+│   ├── types.ts             RawDataset and MappedDataset interfaces
+│   ├── mapDataset.ts        Pure transform function with null handling
+│   └── tsconfig.json
+├── server/                  Express API and build-time data generation
+│   └── src/
+│       ├── index.ts         Express server: GET /api/datasets
+│       └── generate.ts      Build script: fetch, map, write static JSON
+├── client/                  React 19 + Vite + TypeScript frontend
+│   └── src/
+│       ├── App.tsx           Root component with loading/error states
+│       ├── main.tsx          Entry point
+│       ├── hooks/
+│       │   └── useDatasets.ts   Fetches and returns typed dataset array
+│       ├── components/
+│       │   ├── DatasetIndex.tsx          Search, filter, paginate, render cards
+│       │   ├── DatasetIndex.module.css   Card styles, category pills, search
+│       │   ├── Pagination.tsx            Reusable pagination with dropdown
+│       │   └── Pagination.module.css
+│       └── styles/
+│           ├── tokens.css    CSS custom properties (colours, spacing, type scale)
+│           ├── reset.css     Browser normalisation
+│           ├── layout.css    Page structure
+│           ├── components.css Reusable UI classes
+│           └── index.css     Import entry point
+├── package.json             Root scripts for monorepo orchestration
+└── wrangler.toml            Cloudflare Pages deployment config
 ```
 
-### shared/
+### Data Flow
 
-Types and a pure mapping function consumed by both server and client. `RawDataset` describes the shape of the upstream JSON. `MappedDataset` is the flat shape the UI needs. `mapDataset` handles the transform, including null coalescing for missing fields.
+1. **At build time:** `generate.ts` fetches the raw JSON from GitHub, passes each item through `mapDataset` (which flattens the nested structure and handles null fields with fallback values), and writes the result as static JSON into the client's public directory.
+2. **In production:** The React app loads the pre-built JSON on mount via `useDatasets`. No runtime API call, no loading spinner for remote data.
+3. **In development:** The Express server runs live at `localhost:3001/api/datasets`, performing the same fetch-and-map in real time. The client can fetch from either source.
 
-Keeping these in a shared directory means the server and client always agree on the data contract. If the upstream schema changes, there is one place to update.
+### Why Build-Time Generation?
 
-### server/
-
-A build-time data generation script (`generate.ts`) that fetches the raw dataset JSON from GitHub, maps it through the shared transform, and writes a static `datasets.json` file into the client's public directory. This runs before the client build via `npm run build:data`.
-
-The script exits with code 1 on failure, which halts the build pipeline. A partial or missing data file should never make it to production.
-
-There is also an Express API endpoint (`index.ts`) that serves the mapped data at runtime. This was built first as a learning exercise and to validate the mapping logic, but the production frontend consumes the static file instead. The API exists as a demonstration that the data layer could be extracted to a backend service if the project needed server-side filtering, pagination, or authentication.
-
-### client/
-
-React 19 with Vite and TypeScript. CSS architecture uses a layered module system adapted from my portfolio site ([drewbs.dev](https://drewbs.dev)):
-
-- `tokens.css` defines all CSS custom properties (colours, spacing, typography, radii)
-- `reset.css` normalises browser defaults and sets base element styles
-- `layout.css` handles structural page layout
-- `components.css` contains reusable UI classes
-- `index.css` is the entry point that imports everything in the correct cascade order
-
-The colour palette was eyedropped from [hdruk.ac.uk](https://www.hdruk.ac.uk) and converted to HSL for consistency with the token system.
+The upstream dataset is a static JSON file in a GitHub repository. It does not change between page loads. Fetching it on every visit would waste bandwidth and add a loading state the user does not need. The Express server demonstrates API development skills (data transformation, error handling, typed responses), while the build-time approach demonstrates the judgement to know when a live API is not warranted.
 
 ---
 
-## Tech choices
+## Tech Stack
 
-**React + Vite + TypeScript** because these are what I use daily and can move fastest with. Vite's dev server and build tooling are excellent for a project this size.
-
-**Monorepo with shared types** because the mapping function and type definitions are consumed by both the data generation script and the client. Duplicating them would create a maintenance risk where the two could drift apart.
-
-**Build-time data generation rather than runtime fetching** because the upstream data does not change between page loads. Fetching 900+ datasets on every visit wastes bandwidth and adds a loading state the user does not need to see. The trade-off is that the data is only as fresh as the last build, which is acceptable for a catalogue of this nature.
-
-**CSS custom properties rather than styled-components** because I evaluated styled-components during planning and decided against it. The setup overhead (TypeScript declaration files, ThemeProvider wiring, learning a new API under time pressure) was not justified for a project with fewer than 15 components. CSS custom properties give me the same token-based design system with zero runtime cost, and it is the approach I can explain and defend without hesitation. The reasoning is documented in my engineering vault at [drewbs.dev/vault](https://drewbs.dev/vault).
-
----
-
-## AI tool usage
-
-Claude (Anthropic) was used for planning, review, and limited boilerplate assistance such as scaffolding and type shapes. Core application logic and final implementation decisions were made by me, and I reviewed and edited any AI-assisted output before including it.
+| Layer | Technology | Why |
+|-------|-----------|-----|
+| Frontend | React 19, TypeScript, Vite | Matches the job spec. Vite for fast dev feedback. TypeScript for type safety on nested external data. |
+| Server | Express 5, TypeScript, tsx | Demonstrates API development. `tsx` for direct TypeScript execution without a compile step. |
+| Shared | TypeScript interfaces, pure functions | Single source of truth for the data contract between server and client. |
+| Styling | CSS custom properties, CSS Modules | Token-based design system adapted from my portfolio. Zero runtime cost. No library dependencies. |
+| Deployment | Cloudflare Pages | Static site hosting on a custom subdomain. Build pipeline: generate data, build client, deploy. |
 
 ---
 
-## What I would do with more time
+## Key Decisions
 
-- Add unit tests for the mapping function (it is pure and trivially testable)
-- Add integration tests for the filter/sort/pagination logic
-- Implement URL query parameter sync so filtered views are shareable
-- Add keyboard navigation for the table
-- Consider virtualised rendering if the dataset count grows significantly
+Significant technical choices are documented in my engineering decision log, including:
+
+- Why a monorepo with shared types rather than duplicated interfaces
+- Why `useState` over `useReducer` over Redux for state management
+- Why CSS custom properties over styled-components
+- Why client-side search and pagination over server-side
+- Why a dropdown page selector over numbered page buttons
+- Why build-time static generation over runtime API calls
+
+Each decision documents what was considered, what was rejected, and why.
+
+---
+
+## AI Tool Usage
+
+Claude (Anthropic) was used as a pair programming partner during this project. A detailed disclosure is provided in AI-DISCLOSURE.md.
+
+**Summary:** Claude assisted with planning, architectural decision-making, boilerplate generation (file scaffolding, component skeletons, CSS modules), and code review. All implementation logic (data mapping, search filtering, pagination, state management) and all final decisions were mine. The full reasoning is documented in the disclosure file.
+
+---
+
+## What I Would Do With More Time
+
+- **Unit tests** for `mapDataset` (it is pure and trivially testable) and the filter/pagination logic
+- **Table view** with a toggle alongside the existing card view, for denser scanning on desktop
+- **Sort controls** for title and access category
+- **URL query parameter sync** so filtered/paginated views are shareable and bookmarkable
+- **Keyboard navigation** and ARIA attributes for accessibility
+- **Virtualised rendering** if the dataset count grew significantly beyond 1000
+- **Loading skeleton** instead of the plain text loading state
