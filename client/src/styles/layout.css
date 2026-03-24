@@ -1,0 +1,17 @@
+/* =========================================================================
+   Layout
+   Structural page layout. Max-width container, page spacing.
+   ========================================================================= */
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.app h1 {
+  font-size: var(--fs-hero);
+  text-align: center;
+  margin-bottom: var(--space-7);
+  color: var(--blue-dark);
+}

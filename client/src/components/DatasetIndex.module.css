@@ -1,0 +1,138 @@
+/* =========================================================================
+   DatasetIndex
+   Editorial list of dataset cards. Description clamped to 2 lines.
+   ========================================================================= */
+
+.datasetIndex {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* =========================================================================
+   Search
+   ========================================================================= */
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-body);
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color 0.2s ease;
+}
+
+.searchInput::placeholder {
+  color: var(--muted);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--teal);
+}
+
+.resultCount {
+  color: var(--muted);
+  font-size: var(--fs-small);
+  margin: 0;
+}
+
+/* =========================================================================
+   Dataset Cards
+   ========================================================================= */
+
+.datasetCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+
+.datasetCard h2 {
+  font-size: var(--fs-h4);
+  margin: 0 0 var(--space-2);
+  color: var(--text);
+}
+
+.description {
+  color: var(--muted);
+  font-size: var(--fs-small);
+  margin: 0 0 var(--space-3);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-small);
+}
+
+.categoryLabel {
+  color: var(--muted);
+}
+
+/* =========================================================================
+   Category Pills
+   Shared pill shape, colour varies by access service category.
+   ========================================================================= */
+
+.openAccess,
+.directAccess,
+.treSde,
+.varies,
+.notSpecified {
+  padding: var(--space-1) var(--space-3);
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: var(--fs-small);
+}
+
+.openAccess {
+  color: var(--green);
+  background: var(--green-light);
+}
+
+.directAccess {
+  color: var(--teal-dark);
+  background: var(--teal-light);
+}
+
+.treSde {
+  color: var(--blue-dark);
+  background: var(--blue-light);
+}
+
+.varies {
+  color: var(--orange);
+  background: var(--orange-light);
+}
+
+.notSpecified {
+  color: var(--muted);
+  background: var(--bg);
+}
+
+/* =========================================================================
+   Access Rights Link
+   ========================================================================= */
+
+.accessLink {
+  color: var(--orange);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.accessLink:visited {
+  color: var(--orange);
+}
+
+.accessLink:hover {
+  color: var(--teal-dark);
+}

@@ -1,0 +1,48 @@
+/* =========================================================================
+   Design Tokens
+   All CSS custom properties. Every other stylesheet is a consumer of this.
+   ========================================================================= */
+
+:root {
+  /* Colours */
+  --teal: hsl(146, 35%, 50%);
+  --teal-light: hsl(146, 35%, 90%);
+  --teal-dark: hsl(146, 40%, 30%);
+  --blue: hsl(234, 35%, 45%);
+  --blue-light: hsl(234, 30%, 92%);
+  --blue-dark: hsl(234, 40%, 28%);
+  --orange: hsl(24, 75%, 45%);
+  --orange-light: hsl(24, 60%, 92%);
+  --green: hsl(145, 45%, 40%);
+  --green-light: hsl(145, 40%, 90%);
+  --bg: hsl(210, 20%, 98%);
+  --surface: hsl(0, 0%, 100%);
+  --text: hsl(220, 15%, 15%);
+  --muted: hsl(220, 8%, 46%);
+  --border: hsl(220, 15%, 15% / 0.08);
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 80px;
+
+  /* Typography */
+  --fs-body: clamp(0.95rem, 0.9rem + 0.3vw, 1.05rem);
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
+  --fs-h4: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+  --fs-hero: clamp(1.5rem, 1.1rem + 1.8vw, 2.4rem);
+  --fs-small: 0.875rem;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Line height */
+  --line: 1.6;
+}
